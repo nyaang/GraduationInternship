@@ -4,7 +4,7 @@ from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['FangSong'] # 指定默认字体
 mpl.rcParams['axes.unicode_minus'] = False
 
-house = pd.read_csv('58E.csv', encoding='gbk')
+house = pd.read_csv('./DATA/58E.csv', encoding='gbk')
 price = house['DanJia']
 max_price = price.max()
 min_price = price.min()
@@ -92,4 +92,4 @@ def PayWay_price(): #押金对单价影响
     plt.xlabel("押金方式")
     plt.ylabel("海淀区整租房价格 (元/平方米*月)")
     plt.show()
-PayWay_price()
+#ZhuangXiu_price()

@@ -7,8 +7,7 @@ from decode58 import decode58main
 ua = UserAgent()
 headers = {"User-Agent": ''}
 urllist = []
-linklist = json.load(open("links.json", 'r'))
-#linklist=["https://bj.58.com/zufang/37377181190428x.shtml"]
+linklist = json.load(open("./DATA/links.json", 'r'))
 def getrequest(url):
     # 使用随机的user-agent
     headers["User-Agent"] = ua.random
@@ -93,7 +92,6 @@ def run():
                     MiaoShu=Detail.li.next_sibling.next_sibling.get_text()  #描述
                 except:
                     MiaoShu=" "
-                #print(LeiXing,Huxing,MianJi,ZhuangXiu,FangXiang,GaoDi,LouCeng,XiaoQuName,QuYuName,CiJiQuYu,XiangXiDiZhi,XiangQing,LiangDian,MiaoShu)
                 try:
                     writer.writerow([LeiXing,Huxing,MianJi,ZhuangXiu,FangXiang,GaoDi,LouCeng,XiaoQuName,QuYuName,CiJiQuYu,XiangXiDiZhi,XiangQing,LiangDian,MiaoShu,link,Price,YuanYue,PayWay])
                 except UnicodeEncodeError:

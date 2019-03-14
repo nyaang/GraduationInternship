@@ -28,11 +28,7 @@ def decode58Fangchan(html,key):
 
     return multReplace(html,chrMapNum)
 def decode58main(f):
-    # with open('1.html', 'r',encoding='utf-8') as f:
     text = html.unescape(f.decode())  #将&#x958f;室变为閏室
     key = re.findall(r"base64,(.*)'\).format", text)[0]  #用正则表达式提取AAE..AAA
     dehtml = decode58Fangchan(text, key)
     return dehtml
-    # soup = BeautifulSoup(dehtml,'lxml')
-    # moneyTags = soup.find_all('div', 'money')
-    # print(','.join([m.b.text.strip() for m in moneyTags]))
