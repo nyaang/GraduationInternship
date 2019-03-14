@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'mainwindow1.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Analyse import num_price,CiJiQuYu_price,Mianji_price,Huxing_price,ZhuangXiu_price,ChaoXiang_price,LouCeng_price,PayWay_price
 # from Regression_LR_RFR import LR_predict_price,RFR_predict_price
@@ -13,7 +6,7 @@ import webbrowser
 from urllib.request import pathname2url
 import os
 import time
-from PyQt5.QtWidgets import QMessageBox,QWidget
+from PyQt5.QtWidgets import QMessageBox
 
 class Ui_MainWindow(QtWidgets.QWidget):
     def setupUi(self, MainWindow):
@@ -130,9 +123,9 @@ class Ui_MainWindow(QtWidgets.QWidget):
 
 
     def relitu(self):
-        url = 'file:{}'.format(pathname2url(os.path.abspath('hot.html')))
+        url = 'file:{}'.format(pathname2url(os.path.abspath('./DATA/hot.html')))
         webbrowser.open(url)
-        url = 'file:{}'.format(pathname2url(os.path.abspath('hot1.html')))
+        url = 'file:{}'.format(pathname2url(os.path.abspath('./DATA/hot1.html')))
         webbrowser.open(url)
 
 
