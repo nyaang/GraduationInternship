@@ -98,12 +98,13 @@ def output_LR_score(ss_y, y_test, lr_y_predict):
     print("LinearRegression模型的均方误差为：",
           mean_squared_error(ss_y.inverse_transform(y_test), ss_y.inverse_transform(lr_y_predict)))
     print("LinearRegression模型的R方得分为：", r2_score(y_test, lr_y_predict))
+    return r2_score(y_test, lr_y_predict)
 
 def output_RFR_score(ss_y, y_test, rfr_y_predict):
     print("随机森林模型的均方误差为：",
           mean_squared_error(ss_y.inverse_transform(y_test), ss_y.inverse_transform(rfr_y_predict)))
     print("随机森林模型的R方得分为：", r2_score(y_test, rfr_y_predict))
-
+    return r2_score(y_test, rfr_y_predict)
 
 #预测结果可视化
 def visible_LR(ss_y, y_test, y_predict):
@@ -127,20 +128,21 @@ def visible_RFR(ss_y, y_test, y_predict):
     plt.title('随机森林回归模型的预测效果')
     plt.xlabel('真实值')
     plt.ylabel('预测值')
-    plt.savefig('GBR_result.png')
+    # plt.savefig('GBR_result.png')
     plt.show()
 
 def LR_predict_price():
     data = get_feature()
     ss_y, y_test, lr_y_predict = LR_train_model(data)
-    output_LR_score(ss_y, y_test, lr_y_predict)
-    visible_LR(ss_y, y_test, lr_y_predict)
 
+    r2 =output_LR_score(ss_y, y_test, lr_y_predict)
+    visible_LR(ss_y, y_test, lr_y_predict)
+    return r2
 def RFR_predict_price():
     data = get_feature()
     ss_y, y_test, rfr_y_predict = RFR_train_model(data)
-    output_RFR_score(ss_y, y_test, rfr_y_predict)
+    r2 =output_RFR_score(ss_y, y_test, rfr_y_predict)
     visible_RFR(ss_y, y_test, rfr_y_predict)
-
+    return r2
 # LR_predict_price()
 # RFR_predict_price()

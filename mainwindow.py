@@ -7,7 +7,8 @@ from urllib.request import pathname2url
 import os
 import time
 from PyQt5.QtWidgets import QMessageBox
-
+from PyQt5.QtGui import *
+import pandas as pd
 class Ui_MainWindow(QtWidgets.QWidget):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -85,8 +86,8 @@ class Ui_MainWindow(QtWidgets.QWidget):
         self.pushButton_1.clicked.connect(num_price)
         self.pushButton_15.clicked.connect(self.relitu)
         self.pushButton.clicked.connect(self.jindu)
-        self.pushButton_14.clicked.connect(RFR_predict_price)
-        self.pushButton_13.clicked.connect(LR_predict_price)
+        self.pushButton_14.clicked.connect(self.RFR_predict_price_new)
+        self.pushButton_13.clicked.connect(self.LR_predict_price_new)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 936, 26))
@@ -95,6 +96,15 @@ class Ui_MainWindow(QtWidgets.QWidget):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(16)
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Web Client"))
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(100, 540, 320, 41))
+        self.label_4.setFont(font)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -134,7 +144,49 @@ class Ui_MainWindow(QtWidgets.QWidget):
             time.sleep(0.1)
             self.progressBar.setProperty("value", i)
         QMessageBox.information(self, "提示", "抓取完毕！", QMessageBox.Yes)
+        self.tableshow()
+    def tableshow(self):
+        self.model = QStandardItemModel(self)
 
+        self.model.setColumnCount(18)
+        self.model.setHeaderData(0, QtCore.Qt.Horizontal, '租赁方式')
+        self.model.setHeaderData(1, QtCore.Qt.Horizontal, '户型')
+        self.model.setHeaderData(2, QtCore.Qt.Horizontal, '面积')
+        self.model.setHeaderData(3, QtCore.Qt.Horizontal, '装修')
+        self.model.setHeaderData(4, QtCore.Qt.Horizontal, '朝向')
+        self.model.setHeaderData(5, QtCore.Qt.Horizontal, '高低')
+        self.model.setHeaderData(6, QtCore.Qt.Horizontal, '楼层')
+        self.model.setHeaderData(7, QtCore.Qt.Horizontal, '小区名')
+        self.model.setHeaderData(8, QtCore.Qt.Horizontal, '区域')
+        self.model.setHeaderData(9, QtCore.Qt.Horizontal, '次级区域')
+        self.model.setHeaderData(10, QtCore.Qt.Horizontal, '详细地址')
+        self.model.setHeaderData(11, QtCore.Qt.Horizontal, '详情')
+        self.model.setHeaderData(12, QtCore.Qt.Horizontal, '亮点')
+
+        self.model.setHeaderData(13, QtCore.Qt.Horizontal, '描述')
+        self.model.setHeaderData(14, QtCore.Qt.Horizontal, 'URL')
+        self.model.setHeaderData(15, QtCore.Qt.Horizontal, '价格')
+        self.model.setHeaderData(16, QtCore.Qt.Horizontal, '周期')
+        self.model.setHeaderData(17, QtCore.Qt.Horizontal, '押金')
+
+        a = pd.read_csv("./DATA/58.csv", encoding="gbk")
+        cols = a.columns.values
+
+        for i in range(10):
+            for j in range(18):
+                item = QStandardItem(str(a[cols[j]][i]))
+                self.model.setItem(i, j, item)
+
+        self.tableView.setModel(self.model)
+    def RFR_predict_price_new(self):
+
+        r2=RFR_predict_price()
+        _translate = QtCore.QCoreApplication.translate
+        self.label_4.setText(_translate("MainWindow", "R方值"+str(r2)))
+    def LR_predict_price_new(self):
+        r2=LR_predict_price()
+        _translate = QtCore.QCoreApplication.translate
+        self.label_4.setText(_translate("MainWindow", "R方值"+str(r2)))
 
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
