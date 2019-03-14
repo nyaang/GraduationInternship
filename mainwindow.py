@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Analyse import num_price,CiJiQuYu_price,Mianji_price,Huxing_price,ZhuangXiu_price,ChaoXiang_price,LouCeng_price,PayWay_price
-# from Regression_LR_RFR import LR_predict_price,RFR_predict_price
+from Regression_LR_RFR import LR_predict_price,RFR_predict_price
 import webbrowser
 from urllib.request import pathname2url
 import os
@@ -85,8 +85,8 @@ class Ui_MainWindow(QtWidgets.QWidget):
         self.pushButton_1.clicked.connect(num_price)
         self.pushButton_15.clicked.connect(self.relitu)
         self.pushButton.clicked.connect(self.jindu)
-
-
+        self.pushButton_14.clicked.connect(RFR_predict_price)
+        self.pushButton_13.clicked.connect(LR_predict_price)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 936, 26))
