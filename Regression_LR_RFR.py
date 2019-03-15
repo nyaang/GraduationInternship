@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import GradientBoostingRegressor,RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['FangSong'] # 指定默认字体
@@ -89,7 +89,7 @@ def RFR_train_model(data):
     y_train = ss_y.fit_transform(y_train)
     y_test = ss_y.transform(y_test)
 
-    rfr = GradientBoostingRegressor()
+    rfr = RandomForestRegressor()
     rfr.fit(x_train, y_train)
     rfr_y_predict = rfr.predict(x_test)
     return ss_y, y_test, rfr_y_predict
@@ -144,5 +144,5 @@ def RFR_predict_price():
     r2 =output_RFR_score(ss_y, y_test, rfr_y_predict)
     visible_RFR(ss_y, y_test, rfr_y_predict)
     return r2
-# LR_predict_price()
-# RFR_predict_price()
+#LR_predict_price()
+#RFR_predict_price()
